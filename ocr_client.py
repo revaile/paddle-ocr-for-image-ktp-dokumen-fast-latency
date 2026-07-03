@@ -8,13 +8,9 @@ from typing import Callable, Dict, Optional
 import requests
 
 
-# JOB_URL = "https://paddleocr.aistudio-app.com/api/v2/ocr/jobs"
-# MODEL = "PaddleOCR-VL-1.6"
-# DEFAULT_TOKEN = os.getenv("PADDLEOCR_TOKEN", "7e51b8813491aa7579876177a09342944b026368")
-
 JOB_URL = "https://paddleocr.aistudio-app.com/api/v2/ocr/jobs"
-DEFAULT_TOKEN = "7e51b8813491aa7579876177a09342944b026368"
-MODEL = "PP-OCRv6"
+MODEL = "PaddleOCR-VL-1.6"
+DEFAULT_TOKEN = os.getenv("PADDLEOCR_TOKEN", "7e51b8813491aa7579876177a09342944b026368")
 
 DEFAULT_OPTIONAL_PAYLOAD = {
     "useDocOrientationClassify": False,
@@ -29,6 +25,51 @@ class PaddleOCRClientError(RuntimeError):
 
 def _auth_headers(token: str) -> Dict[str, str]:
     return {"Authorization": f"bearer {token}"}
+
+
+def _remove_urls(value):
+    if isinstance(value, dict):
+        cleaned = {}
+        for key, item in value.items():
+            if "url" in key.lower():
+                continue
+            cleaned[key] = _remove_urls(item)
+        return cleaned
+
+    if isinstance(value, list):
+        return [_remove_urls(item) for item in value]
+
+    if isinstance(value, str) and value.startswith(("http://", "https://")):
+        return None
+
+    return value
+
+
+def _text_lines(text: str) -> list:
+    return [line.strip() for line in text.splitlines() if line.strip()]
+
+
+def _extract_text_values(value) -> list:
+    if isinstance(value, dict):
+        texts = []
+        for key, item in value.items():
+            key_lower = key.lower()
+            if key_lower in {"text", "rectext", "rectexts"}:
+                if isinstance(item, str) and item.strip():
+                    texts.append(item.strip())
+                elif isinstance(item, list):
+                    texts.extend(str(text).strip() for text in item if str(text).strip())
+            elif "url" not in key_lower:
+                texts.extend(_extract_text_values(item))
+        return texts
+
+    if isinstance(value, list):
+        texts = []
+        for item in value:
+            texts.extend(_extract_text_values(item))
+        return texts
+
+    return []
 
 
 def submit_ocr_job(
@@ -111,7 +152,7 @@ def poll_ocr_job(
         time.sleep(interval_seconds)
 
 
-def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
+def download_ocr_results(jsonl_url: str, output_dir: str) -> tuple[list, str, list]:
     response = requests.get(jsonl_url, timeout=120)
     response.raise_for_status()
 
@@ -119,6 +160,7 @@ def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
     output_path.mkdir(parents=True, exist_ok=True)
 
     pages = []
+    all_lines = []
     page_num = 0
 
     for line_num, raw_line in enumerate(response.text.strip().splitlines(), start=1):
@@ -127,13 +169,16 @@ def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
             continue
 
         try:
-            result = json.loads(line)["result"]
+            line_data = json.loads(line)
+            result = line_data["result"]
         except (json.JSONDecodeError, KeyError) as exc:
             raise PaddleOCRClientError(f"JSONL tidak valid pada baris {line_num}") from exc
 
         for layout_result in result.get("layoutParsingResults", []):
             markdown_data = layout_result.get("markdown", {})
             markdown_text = markdown_data.get("text", "")
+            lines = _text_lines(markdown_text)
+            all_lines.extend(lines)
             markdown_file = output_path / f"doc_{page_num}.md"
             markdown_file.write_text(markdown_text, encoding="utf-8")
 
@@ -148,7 +193,6 @@ def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
                     {
                         "name": image_path,
                         "file": str(full_image_path),
-                        "url": image_url,
                     }
                 )
 
@@ -162,14 +206,15 @@ def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
                     {
                         "name": image_name,
                         "file": str(image_file),
-                        "url": image_url,
                     }
                 )
 
             pages.append(
                 {
                     "page": page_num + 1,
+                    "text": markdown_text,
                     "markdown": markdown_text,
+                    "lines": lines,
                     "markdown_file": str(markdown_file),
                     "markdown_images": markdown_images,
                     "output_images": output_images,
@@ -177,7 +222,24 @@ def download_ocr_results(jsonl_url: str, output_dir: str) -> list:
             )
             page_num += 1
 
-    return pages
+        if not result.get("layoutParsingResults"):
+            lines = _extract_text_values(_remove_urls(result))
+            if lines:
+                all_lines.extend(lines)
+                pages.append(
+                    {
+                        "page": page_num + 1,
+                        "text": "\n".join(lines),
+                        "markdown": "\n".join(lines),
+                        "lines": lines,
+                        "markdown_file": None,
+                        "markdown_images": [],
+                        "output_images": [],
+                    }
+                )
+                page_num += 1
+
+    return pages, "\n".join(all_lines), all_lines
 
 
 def build_api_response(
@@ -189,9 +251,10 @@ def build_api_response(
     pages: list,
     output_dir: str,
     latency_seconds: float,
+    text: str,
+    lines: list,
 ) -> dict:
     progress = job_data.get("extractProgress", {})
-    result_url = job_data.get("resultUrl", {})
 
     return {
         "status": "success",
@@ -203,8 +266,9 @@ def build_api_response(
             "extractedPages": progress.get("extractedPages"),
             "startTime": progress.get("startTime"),
             "endTime": progress.get("endTime"),
-            "resultUrl": result_url,
             "outputDir": output_dir,
+            "text": text,
+            "lines": lines,
             "pages": pages,
         },
         "meta": {
@@ -244,7 +308,7 @@ def process_ocr_file(
     if not jsonl_url:
         raise PaddleOCRClientError("URL hasil JSON tidak ditemukan dari response OCR.")
 
-    pages = download_ocr_results(jsonl_url, output_dir)
+    pages, text, lines = download_ocr_results(jsonl_url, output_dir)
     latency_seconds = time.perf_counter() - started_at
     return build_api_response(
         filename=os.path.basename(file_path),
@@ -254,4 +318,6 @@ def process_ocr_file(
         pages=pages,
         output_dir=output_dir,
         latency_seconds=latency_seconds,
+        text=text,
+        lines=lines,
     )

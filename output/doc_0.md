@@ -1,9 +1,38 @@
-## ABSTRAK
+DITERBITKAN ATAS NAMA
 
-Indra Gunawan: 1223040084 2026, Konsep Hukum Nikah Tanpa Wali Menurut Imam Al-Juwaini dan Imam Al-Sarakhsi serta Implikasinya Terhadap Keabsahan Akad Nikah
-Penelitian ini dilatarbelakangi oleh tingginya angka pernikahan yang dilakukan tanpa kehadiran wali nikah, baik karena ketidaktahuan, penolakan wali, maupun kondisi sosial tertentu yang menjadi problematika di masyarakat Muslim modern. Status hukum pernikahan tanpa wali menjadi krusial karena berimplikasi langsung terhadap keabsahan akad nikah dan hak-hak hukum yang melekat padanya.
-Tujuan utama dari penelitian ini adalah: 1. Untuk mengetahui konsep hukum nikah tanpa wali menurut Imam Al-Juwaini, 2. Untuk mengetahui konsep hukum nikah tanpa wali menurut Imam Al-Sarakhsi, 3. Mengetahui perbandingan konsep hukum nikah tanpa wali antara Imam Al-Juwaini dan Imam Al-Sarakhsi serta implikasinya terhadap keabsahan akad nikah. Melalui tujuan tersebut, diharapkan penelitian ini dapat memberikan solusi praktis bagi masyarakat Muslim dalam mengamalkan hukum-hukum yang berkaitan dengan pernikahan.
-Kerangka berpikir penelitian ini dibangun menggunakan teori fiqh muqaran (perbandingan), teori ushul fiqh, dan teori sosiologi hukum Islam. Fiqh muqaran digunakan untuk melihat dinamika ijtihad dan titik temu antar mazhab, sedangkan teori ushul fiqh berfungsi membongkar akar perbedaan metodologis, seperti penggunaan istihsan oleh Imam Al-Sarakhsi yang lebih fleksibel dibandingkan pendekatan qiyas dan tekstual nash yang lebih ketat oleh Imam Al-Juwaini. Teori sosiologi hukum Islam digunakan untuk memahami bagaimana hukum tersebut berinteraksi, berkembang dan bekerja dalam kenyataan sosial masyarakat.
-Metode penelitian yang digunakan adalah deskriptif-analitif dengan pendekatan normatif-komparatif. Jenis penelitian ini merupakan penelitian kepustakaan (library research) yang bersumber pada data kualitatif berupa teks tertulis dari kitab-kitab klasik yang ditulis oleh para tokoh. Sumber data primer dalam kajian ini adalah kitab Nihayat al-Mathlab fi Dirayat al-Mazhab karya Imam Al-Juwaini serta kitab Al-Mabsut karya Imam Al-Sarakhsi.
-Hasil penelitian menunjukkan bahwa: 1. Konsep hukum nikah tanpa wali menurut Imam Al-Juwaini dari mazhab Syafi'i menegaskan bahwa wali merupakan rukun nikah yang mutlak dan tidak dapat digugurkan, sehingga pernikahan yang dilakukan tanpa wali dihukumi tidak sah secara syar'i, 2. Konsep hukum nikah tanpa wali menurut Imam Al-Sarakhsi dari mazhab Hanafi berpandangan bahwa wali bukan merupakan syarat mutlak sahnya akad nikah bagi perempuan yang telah baligh dan berakal, sehingga ia dapat menikahkan dirinya sendiri dengan syarat-syarat tertentu, 3. Perbedaan implikasinya terhadap keabsahan akad nikah berupa perbedaan dalam menentukan status hukum pernikahan, hak ijbar wali, serta konsekuensi hukum bagi anak yang lahir dari pernikahan tersebut; Imam Al-Juwaini mensyaratkan adanya wali sebagai penentu keabsahan akad, sedangkan Imam Al-Sarakhsi lebih menekankan kecakapan hukum perempuan sebagai subyek akad.
-Kata Kunci: Nikah Tanpa Wali, Imam Al-Juwaini, Imam Al-Sarakhsi, Wali Nikah, Keabsahan Akad Nikah
+Penjual : hai_mac
+
+UNTUK
+
+Pembeli : Muhammad Idris
+
+Tanggal Pembelian : 13 Januari 2025
+
+Alamat Pengiriman : Muhammad Idris (6285882311829)
+
+Muhammad Idris Bandung Kidul, Kota
+
+Bandung, 40267 Jawa Barat
+
+
+<table border=1 style='margin: auto; word-wrap: break-word;'><tr><td style='text-align: center; word-wrap: break-word;'>INFO PRODUK</td><td style='text-align: center; word-wrap: break-word;'>JUMLAH</td><td style='text-align: center; word-wrap: break-word;'>HARGA SATUAN</td><td style='text-align: center; word-wrap: break-word;'>TOTAL HARGA</td></tr><tr><td style='text-align: center; word-wrap: break-word;'>MacBook Pro M1 2020 13 Inch RAM 8GB 16GB SSD\n256 512 GB CTO - LIKE NEW - GRADE A, 8/512 GB\nBerat: 3.50 kg</td><td style='text-align: center; word-wrap: break-word;'>1</td><td style='text-align: center; word-wrap: break-word;'>Rp13.450.000</td><td style='text-align: center; word-wrap: break-word;'>Rp13.450.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">SUBTOTAL HARGA BARANG</td><td style='text-align: center; word-wrap: break-word;'>Rp13.450.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">Diskon Barang dari Platform</td><td style='text-align: center; word-wrap: break-word;'>-Rp14.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">Total Ongkos Kirim</td><td style='text-align: center; word-wrap: break-word;'>Rp38.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">Kupon Diskon Ongkos Kirim dari Platform</td><td style='text-align: center; word-wrap: break-word;'>-Rp10.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">Asuransi Pengiriman</td><td style='text-align: center; word-wrap: break-word;'>Rp81.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">Biaya Jasa Aplikasi</td><td style='text-align: center; word-wrap: break-word;'>Rp1.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">TOTAL BELANJA</td><td style='text-align: center; word-wrap: break-word;'>Rp13.546.000</td></tr><tr><td style='text-align: center; word-wrap: break-word;'></td><td colspan="2">TOTAL TAGIHAN</td><td style='text-align: center; word-wrap: break-word;'>Rp13.546.000</td></tr></table>
+
+BEBAS ONGKIR
+
+Asuransi Pengiriman Tokopedia
+
+
+
+<div style="text-align: center;"><img src="imgs/img_in_image_box_30_980_53_1004.jpg" alt="Image" width="1%" /></div>
+
+
+Metode Pembayaran:
+
+Kartu Kredit
+
+Invoice ini sah dan diproses oleh komputer
+
+Silakan hubungi Tokopedia Care apabila kamu membutuhkan bantuan.
+
+Terakhir diupdate: 14 Januari 2025 09:34 WIB
+

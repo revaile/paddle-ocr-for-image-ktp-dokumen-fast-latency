@@ -128,8 +128,8 @@ if run_button and uploaded_file:
                 st.warning("Tidak ada halaman yang berhasil diekstrak.")
             for page in pages:
                 st.subheader(f"Halaman {page['page']}")
-                if page["markdown"]:
-                    st.markdown(page["markdown"])
+                if page["text"]:
+                    st.markdown(page["text"])
                 else:
                     st.caption("Markdown kosong.")
 

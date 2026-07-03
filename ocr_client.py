@@ -8,9 +8,13 @@ from typing import Callable, Dict, Optional
 import requests
 
 
+# JOB_URL = "https://paddleocr.aistudio-app.com/api/v2/ocr/jobs"
+# MODEL = "PaddleOCR-VL-1.6"
+# DEFAULT_TOKEN = os.getenv("PADDLEOCR_TOKEN", "7e51b8813491aa7579876177a09342944b026368")
+
 JOB_URL = "https://paddleocr.aistudio-app.com/api/v2/ocr/jobs"
-MODEL = "PaddleOCR-VL-1.6"
-DEFAULT_TOKEN = os.getenv("PADDLEOCR_TOKEN", "7e51b8813491aa7579876177a09342944b026368")
+DEFAULT_TOKEN = "7e51b8813491aa7579876177a09342944b026368"
+MODEL = "PP-OCRv6"
 
 DEFAULT_OPTIONAL_PAYLOAD = {
     "useDocOrientationClassify": False,
@@ -184,6 +188,7 @@ def build_api_response(
     job_data: dict,
     pages: list,
     output_dir: str,
+    latency_seconds: float,
 ) -> dict:
     progress = job_data.get("extractProgress", {})
     result_url = job_data.get("resultUrl", {})
@@ -205,6 +210,8 @@ def build_api_response(
         "meta": {
             "filename": filename,
             "model": model,
+            "latencySeconds": round(latency_seconds, 3),
+            "latencyMs": round(latency_seconds * 1000),
             "generatedAt": datetime.now(timezone.utc).isoformat(),
         },
     }
@@ -222,6 +229,7 @@ def process_ocr_file(
     if not token:
         raise PaddleOCRClientError("Token PaddleOCR belum diisi.")
 
+    started_at = time.perf_counter()
     job_id = submit_ocr_job(file_path, token, model, optional_payload)
     if progress_callback:
         progress_callback({"state": "submitted", "jobId": job_id})
@@ -237,6 +245,7 @@ def process_ocr_file(
         raise PaddleOCRClientError("URL hasil JSON tidak ditemukan dari response OCR.")
 
     pages = download_ocr_results(jsonl_url, output_dir)
+    latency_seconds = time.perf_counter() - started_at
     return build_api_response(
         filename=os.path.basename(file_path),
         model=model,
@@ -244,4 +253,5 @@ def process_ocr_file(
         job_data=job_data,
         pages=pages,
         output_dir=output_dir,
+        latency_seconds=latency_seconds,
     )

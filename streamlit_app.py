@@ -1,4 +1,5 @@
 import json
+import time
 from pathlib import Path
 
 import requests
@@ -15,6 +16,11 @@ from ocr_client import (
 
 UPLOAD_DIR = Path("tmp_uploads")
 OUTPUT_DIR = Path("output")
+
+
+def format_size(size_bytes: int) -> str:
+    size_mb = size_bytes / (1024 * 1024)
+    return f"{size_mb:.2f} MB"
 
 
 st.set_page_config(page_title="PaddleOCR Upload", layout="wide")
@@ -49,12 +55,12 @@ uploaded_file = st.file_uploader(
 )
 
 if uploaded_file:
-    file_size_mb = uploaded_file.size / (1024 * 1024)
-    st.info(f"File siap diproses: {uploaded_file.name} ({file_size_mb:.2f} MB)")
+    st.info(f"File siap diproses: {uploaded_file.name} ({format_size(uploaded_file.size)})")
 
 run_button = st.button("Proses OCR", type="primary", disabled=uploaded_file is None)
 
 if run_button and uploaded_file:
+    started_at = time.perf_counter()
     UPLOAD_DIR.mkdir(exist_ok=True)
     OUTPUT_DIR.mkdir(exist_ok=True)
 
@@ -114,6 +120,7 @@ if run_button and uploaded_file:
         status_box.success("OCR selesai.")
 
         pages = response["data"]["pages"]
+        st.metric("Latency", f"{response['meta']['latencySeconds']} detik")
         tab_preview, tab_json, tab_files = st.tabs(["Preview", "Response API", "File Output"])
 
         with tab_preview:
@@ -154,6 +161,7 @@ if run_button and uploaded_file:
                 "meta": {
                     "filename": uploaded_file.name,
                     "model": model,
+                    "latencySeconds": round(time.perf_counter() - started_at, 3),
                 },
             }
         )
